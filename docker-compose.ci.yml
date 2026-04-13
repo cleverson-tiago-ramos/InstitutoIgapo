@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: ./api
+    container_name: laravel_app
+    volumes:
+      - ./api:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: react_app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    stdin_open: true
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: ong
+      POSTGRES_USER: ong_user
+      POSTGRES_PASSWORD: ong_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
