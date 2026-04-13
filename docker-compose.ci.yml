@@ -3,37 +3,53 @@ version: "3.8"
 services:
   app:
     build:
-      context: ./api
+      context: ./backend
+      dockerfile: ../docker/php/Dockerfile
     container_name: laravel_app
     volumes:
-      - ./api:/var/www
-    ports:
-      - "8000:8000"
+      - ./backend:/var/www
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    restart: always
 
   frontend:
     build:
       context: ./frontend
+      dockerfile: ../docker/node/Dockerfile
     container_name: react_app
-    ports:
-      - "5173:5173"
     volumes:
       - ./frontend:/app
-    stdin_open: true
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_server
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend/dist:/var/www/frontend/dist
+    depends_on:
+      - app
+      - frontend
+    restart: always
 
   db:
     image: postgres:15
     container_name: postgres_db
     restart: always
     environment:
-      POSTGRES_DB: ong
-      POSTGRES_USER: ong_user
-      POSTGRES_PASSWORD: ong_pass
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   pgdata:
