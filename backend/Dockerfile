@@ -21,11 +21,10 @@ RUN curl -sS https://getcomposer.org/installer | php
 # Instalar dependências do Laravel
 RUN php composer.phar install --no-dev --optimize-autoloader
 
-# Limpar cache (boa prática)
-RUN php artisan config:clear && php artisan cache:clear
+# (REMOVIDO artisan aqui ❌)
 
-# Expor porta (opcional, Railway ignora mas é boa prática)
+# Porta
 EXPOSE 8000
 
-# Comando de inicialização (IMPORTANTE)
+# Start (AQUI SIM pode rodar artisan ✅)
 CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
