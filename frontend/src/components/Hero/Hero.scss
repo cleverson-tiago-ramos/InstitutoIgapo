@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+
+.hero {
+  text-align: center;
+  padding: 120px 20px 60px;
+
+  h1 {
+    font-size: 42px;
+    color: #4a4a4a;
+  }
+
+  p {
+    margin: 20px 0;
+    font-size: 18px;
+  }
+}
+
+.wave {
+  height: 120px;
+  background: linear-gradient(135deg, #00a8c6, #00c2d6);
+  border-radius: 0 0 100% 100%;
+}
