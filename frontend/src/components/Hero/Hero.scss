@@ -2,21 +2,32 @@
 
 .hero {
   text-align: center;
-  padding: 120px 20px 60px;
+  padding: 140px 20px 80px;
+
+  background: linear-gradient(180deg, #f8fbfc 0%, #ffffff 100%);
 
   h1 {
-    font-size: 42px;
-    color: #4a4a4a;
+    font-size: 48px;
+    font-weight: 700;
+    color: #3a3a3a;
+    max-width: 700px;
+    margin: 0 auto;
   }
 
   p {
-    margin: 20px 0;
     font-size: 18px;
+    margin: 20px 0;
+    color: $secondary;
+  }
+
+  .btn-primary {
+    margin-top: 20px;
   }
 }
 
+/* onda mais orgânica */
 .wave {
-  height: 120px;
+  height: 140px;
   background: linear-gradient(135deg, #00a8c6, #00c2d6);
-  border-radius: 0 0 100% 100%;
+  border-radius: 0 0 80% 80%;
 }
