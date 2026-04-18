@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+
+#local {
+  p {
+    font-weight: 500;
+  }
+
+  iframe {
+    border-radius: 16px;
+    margin-top: 25px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  }
+}

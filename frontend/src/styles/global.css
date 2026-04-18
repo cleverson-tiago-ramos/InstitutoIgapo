@@ -1,40 +1,28 @@
-:root {
-  --primary: #00a8c6;
-  --secondary: #6d6d6d;
-  --bg: #ffffff;
-}
-
+/* styles/global.css */
 body {
-  margin: 0;
   font-family: 'Montserrat', sans-serif;
+  margin: 0;
   background: var(--bg);
   color: var(--secondary);
 }
 
-/* HEADER */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 40px;
-  background: white;
-}
-
-.logo {
-  height: 60px;
 }
 
 .header nav a {
   margin: 0 10px;
-  text-decoration: none;
   color: var(--secondary);
+  text-decoration: none;
 }
 
 .header nav a:hover {
   color: var(--primary);
 }
 
-/* BOTÃO */
 .btn-primary {
   background: var(--primary);
   color: white;
@@ -44,7 +32,6 @@ body {
   cursor: pointer;
 }
 
-/* HERO */
 .hero {
   text-align: center;
   padding: 80px 20px;
@@ -54,16 +41,13 @@ body {
   height: 80px;
   background: var(--primary);
   border-radius: 50% 50% 0 0;
-  margin-top: 40px;
 }
 
-/* SECTIONS */
 .section {
   padding: 60px 40px;
   text-align: center;
 }
 
-/* CARDS */
 .cards {
   display: flex;
   justify-content: center;
@@ -73,26 +57,5 @@ body {
 .card {
   padding: 20px;
   border-radius: 12px;
-  background: #f5f5f5;
-  min-width: 150px;
-}
-
-/* PARCEIROS */
-.partners {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.partner {
-  padding: 20px;
-  background: #eee;
-  border-radius: 10px;
-}
-
-/* FOOTER */
-.footer {
-  padding: 20px;
-  text-align: center;
   background: #f5f5f5;
 }

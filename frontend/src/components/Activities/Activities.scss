@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 220px;
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+
+  transition: 0.3s;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  }
+}
