@@ -3,6 +3,8 @@ import '@/styles/HeroSlider/HeroSlider.scss';
 
 import slide1 from '@/assets/img/heroSlider/foto1.png';
 import image2 from '@/assets/img/heroSlider/image2.png';
+import image3 from '@/assets/img/heroSlider/image3.png';
+import image4 from '@/assets/img/heroSlider/image4.png';
 
 type Slide = {
   id: number;
@@ -16,27 +18,39 @@ type Slide = {
 const slides: Slide[] = [
   {
     id: 1,
-    title: 'Esporte para Todos',
-    subtitle: 'Projeto Esportivo',
+    title: 'Projeto Esportivo',
+    subtitle: 'Inclusão através do esporte',
     highlight: 'Voleibol',
-    description: 'Transformando vidas através do esporte e educação.',
+    description:
+      'O voleibol como ferramenta de transformação social, promovendo disciplina, saúde e oportunidades para nossos jovens.',
     image: slide1,
   },
   {
     id: 2,
-    title: 'Reforço Escolar',
-    subtitle: 'Educação',
-    highlight: 'Futuro',
-    description: 'Apoio educacional para jovens da comunidade.',
+    title: 'Ações Sociais',
+    subtitle: 'Cuidando da comunidade',
+    highlight: 'Solidariedade',
+    description:
+      'Realizamos ações que fortalecem famílias, levando apoio, acolhimento e esperança para quem mais precisa.',
     image: image2,
   },
   {
     id: 3,
-    title: 'Ações Sociais',
-    subtitle: 'Impacto',
-    highlight: 'Social',
-    description: 'Projetos que mudam realidades.',
-    image: slide1,
+    title: 'Projeto Esportivo',
+    subtitle: 'Disciplina e respeito',
+    highlight: 'Judô',
+    description:
+      'O judô ensina valores como respeito, foco e superação, ajudando a formar cidadãos preparados para o futuro.',
+    image: image3,
+  },
+  {
+    id: 4,
+    title: 'Nossa Missão',
+    subtitle: 'Transformação real',
+    highlight: 'Comunidade',
+    description:
+      'A presidente Marilza da Luz acredita que a única maneira de transformar nossa comunidade é através de nós mesmos, com união, educação e oportunidades.',
+    image: image4,
   },
 ];
 
@@ -45,14 +59,6 @@ export default function HeroSlider() {
   const [paused, setPaused] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
-
-  // 🚀 preload imagens
-  useEffect(() => {
-    slides.forEach((slide) => {
-      const img = new Image();
-      img.src = slide.image;
-    });
-  }, []);
 
   const next = useCallback(() => {
     setActive((p) => (p + 1) % slides.length);
@@ -115,7 +121,7 @@ export default function HeroSlider() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* BACKGROUND (render otimizado) */}
+      {/* BACKGROUND */}
       <div
         className='hero-bg is-active'
         style={{ backgroundImage: `url(${current.image})` }}
@@ -123,8 +129,8 @@ export default function HeroSlider() {
 
       <div className='overlay' />
 
-      {/* TEXTO (sem key = sem flicker) */}
-      <div className='hero-content'>
+      {/* TEXTO */}
+      <div className={`hero-content fade-${active}`}>
         <span className='subtitle'>{current.subtitle}</span>
 
         <h1 className='title'>
@@ -148,7 +154,7 @@ export default function HeroSlider() {
             className={`thumb ${index === active ? 'active' : ''}`}
             onClick={() => setActive(index)}
           >
-            <img src={slide.image} alt={slide.title} />
+            <img src={slide.image} />
           </button>
         ))}
       </div>
