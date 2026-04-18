@@ -1,6 +1,8 @@
+// frontend/src/components/About/About.tsx
+import React from 'react';
 import './About.scss';
 
-export default function About() {
+export const About: React.FC = () => {
   return (
     <section id='sobre' className='section'>
       <h2>Quem Somos</h2>
@@ -10,4 +12,4 @@ export default function About() {
       </p>
     </section>
   );
-}
+};

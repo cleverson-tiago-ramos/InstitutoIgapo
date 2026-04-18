@@ -1,6 +1,8 @@
 // components/Location.jsx
+import React from 'react';
 import './Location.scss';
-export default function Location() {
+
+export const Location: React.FC = () => {
   return (
     <section id='local' className='section'>
       <h2>Onde estamos</h2>
@@ -10,7 +12,11 @@ export default function Location() {
         src='https://www.google.com/maps?q=londrina&output=embed'
         width='100%'
         height='300'
-      ></iframe>
+        loading='lazy'
+        referrerPolicy='no-referrer-when-downgrade'
+        style={{ border: 0 }}
+        title='Localização Instituto Igapó'
+      />
     </section>
   );
-}
+};

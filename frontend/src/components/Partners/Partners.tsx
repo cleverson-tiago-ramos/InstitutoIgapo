@@ -1,6 +1,8 @@
 // src/components/Partners.tsx
+import React from 'react';
 import './Partners.scss';
-export default function Partners() {
+
+export const Partners: React.FC = () => {
   return (
     <section id='parceiros' className='section'>
       <h2>Parceiros</h2>
@@ -11,4 +13,4 @@ export default function Partners() {
       </div>
     </section>
   );
-}
+};

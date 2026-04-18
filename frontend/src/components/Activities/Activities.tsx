@@ -1,6 +1,8 @@
-// components/Activities.jsx
+// components/Activities.tsx
+import React from 'react';
 import './Activities.scss';
-export default function Activities() {
+
+export const Activities: React.FC = () => {
   return (
     <section id='atividades' className='section'>
       <h2>Nossas Atividades</h2>
@@ -12,4 +14,4 @@ export default function Activities() {
       </div>
     </section>
   );
-}
+};
