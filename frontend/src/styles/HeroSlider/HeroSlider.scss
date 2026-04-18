@@ -1,0 +1,229 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  color: #fff;
+
+  /* variáveis para parallax */
+  --mx: 0;
+  --my: 0;
+}
+
+/* ===== BACKGROUND (crossfade + zoom + parallax) ===== */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.08)
+    translate(calc(var(--mx) * 10px), calc(var(--my) * 10px));
+  transition:
+    opacity 0.9s ease,
+    transform 6s ease;
+  will-change: opacity, transform;
+
+  &.is-active {
+    opacity: 1;
+    transform: scale(1.15)
+      translate(calc(var(--mx) * 16px), calc(var(--my) * 16px));
+  }
+}
+
+/* ===== OVERLAY (gradiente cinematográfico) ===== */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 60% at 70% 40%, rgba(0, 0, 0, 0.15), transparent 60%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.2));
+}
+
+/* ===== TEXTO (animação de entrada) ===== */
+.hero-content {
+  position: absolute;
+  top: 30%;
+  left: 8%;
+  max-width: 560px;
+  z-index: 2;
+
+  .subtitle {
+    letter-spacing: 4px;
+    font-size: 12px;
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 8px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .title {
+    font-size: 56px;
+    line-height: 1.05;
+    margin: 8px 0 14px;
+    font-weight: 700;
+    animation: fadeUp 0.7s ease both;
+
+    span {
+      color: #ff5c00;
+      text-shadow: 0 6px 20px rgba(255, 92, 0, 0.35);
+    }
+  }
+
+  .desc {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease both;
+  }
+}
+
+/* ===== BOTÕES ===== */
+.buttons {
+  display: flex;
+  gap: 12px;
+  animation: fadeUp 0.9s ease both;
+
+  .btn-primary {
+    background: #fff;
+    color: #111;
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  .btn-outline {
+    border: 1px solid #fff;
+    background: transparent;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 999px;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+/* ===== THUMBS ===== */
+.hero-thumbs {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  display: flex;
+  gap: 14px;
+  z-index: 2;
+}
+
+.thumb {
+  width: 120px;
+  height: 170px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  opacity: 0.6;
+  transform: translateY(10px);
+  transition:
+    transform 0.3s,
+    opacity 0.3s,
+    box-shadow 0.3s;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+  }
+
+  .thumb-info {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    font-size: 12px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(0) scale(1.03);
+  }
+
+  &.active {
+    opacity: 1;
+    transform: translateY(0) scale(1.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border: 2px solid #fff;
+  }
+}
+
+/* ===== NAV ===== */
+.hero-nav {
+  position: absolute;
+  bottom: 120px;
+  left: 8%;
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+
+  button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.9);
+    color: #111;
+    font-size: 18px;
+    transition:
+      transform 0.2s,
+      background 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+      background: #fff;
+    }
+  }
+}
+
+/* ===== KEYFRAMES ===== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .hero-content {
+    left: 5%;
+    right: 5%;
+    top: 28%;
+
+    .title {
+      font-size: 38px;
+    }
+  }
+
+  .hero-thumbs {
+    right: 10px;
+    bottom: 20px;
+    transform: scale(0.85);
+  }
+}
