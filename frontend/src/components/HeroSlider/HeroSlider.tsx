@@ -43,9 +43,17 @@ const slides: Slide[] = [
 export default function HeroSlider() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // ✅ funções antes do useEffect
+  // 🚀 preload imagens
+  useEffect(() => {
+    slides.forEach((slide) => {
+      const img = new Image();
+      img.src = slide.image;
+    });
+  }, []);
+
   const next = useCallback(() => {
     setActive((p) => (p + 1) % slides.length);
   }, []);
@@ -57,11 +65,7 @@ export default function HeroSlider() {
   // autoplay
   useEffect(() => {
     if (paused) return;
-
-    const interval = setInterval(() => {
-      next();
-    }, 6000);
-
+    const interval = setInterval(next, 6000);
     return () => clearInterval(interval);
   }, [paused, next]);
 
@@ -71,12 +75,22 @@ export default function HeroSlider() {
       if (e.key === 'ArrowLeft') prev();
       if (e.key === 'ArrowRight') next();
     };
-
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [next, prev]);
 
-  // parallax mouse
+  // swipe mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diff = touchStart - e.changedTouches[0].clientX;
+    if (diff > 50) next();
+    if (diff < -50) prev();
+  };
+
+  // parallax
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = containerRef.current;
     if (!el) return;
@@ -98,21 +112,19 @@ export default function HeroSlider() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onMouseMove={handleMouseMove}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
-      {/* BACKGROUND */}
-      {slides.map((slide, i) => (
-        <div
-          key={slide.id}
-          className={`hero-bg ${i === active ? 'is-active' : ''}`}
-          style={{ backgroundImage: `url(${slide.image})` }}
-        />
-      ))}
+      {/* BACKGROUND (render otimizado) */}
+      <div
+        className='hero-bg is-active'
+        style={{ backgroundImage: `url(${current.image})` }}
+      />
 
-      {/* OVERLAY */}
       <div className='overlay' />
 
-      {/* TEXTO */}
-      <div key={current.id} className='hero-content'>
+      {/* TEXTO (sem key = sem flicker) */}
+      <div className='hero-content'>
         <span className='subtitle'>{current.subtitle}</span>
 
         <h1 className='title'>
@@ -137,10 +149,6 @@ export default function HeroSlider() {
             onClick={() => setActive(index)}
           >
             <img src={slide.image} alt={slide.title} />
-            <div className='thumb-info'>
-              <strong>{slide.title}</strong>
-              <span>Ver</span>
-            </div>
           </button>
         ))}
       </div>
@@ -149,6 +157,17 @@ export default function HeroSlider() {
       <div className='hero-nav'>
         <button onClick={prev}>‹</button>
         <button onClick={next}>›</button>
+      </div>
+
+      {/* DOTS */}
+      <div className='hero-dots'>
+        {slides.map((_, i) => (
+          <span
+            key={i}
+            className={i === active ? 'dot active' : 'dot'}
+            onClick={() => setActive(i)}
+          />
+        ))}
       </div>
     </section>
   );

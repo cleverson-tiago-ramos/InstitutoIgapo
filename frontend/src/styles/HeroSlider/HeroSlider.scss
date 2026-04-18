@@ -229,3 +229,25 @@
     transform: scale(0.85);
   }
 }
+
+.hero-dots {
+  position: absolute;
+  bottom: 40px;
+  left: 8%;
+  display: flex;
+  gap: 8px;
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: 0.3s;
+
+    &.active {
+      background: #fff;
+      transform: scale(1.2);
+    }
+  }
+}
