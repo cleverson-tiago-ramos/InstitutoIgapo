@@ -1,6 +1,7 @@
 // frontend/src/components/About/About.tsx
 import React from 'react';
-import './About.scss';
+
+import '@/styles/About.scss';
 
 export const About: React.FC = () => {
   return (

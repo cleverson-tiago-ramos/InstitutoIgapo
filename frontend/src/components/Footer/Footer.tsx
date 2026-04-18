@@ -1,7 +1,7 @@
 // components/Footer.tsx
 import React from 'react';
-import './Footer.scss';
 
+import '@/styles/Footer.scss';
 export const Footer: React.FC = () => {
   return (
     <footer className='footer'>

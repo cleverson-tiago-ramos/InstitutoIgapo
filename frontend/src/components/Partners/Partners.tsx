@@ -1,6 +1,7 @@
 // src/components/Partners.tsx
 import React from 'react';
-import './Partners.scss';
+
+import '@/styles/Partners.scss';
 
 export const Partners: React.FC = () => {
   return (

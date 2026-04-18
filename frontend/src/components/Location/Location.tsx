@@ -1,6 +1,7 @@
 // components/Location.jsx
 import React from 'react';
-import './Location.scss';
+
+import '@/styles/Location.scss';
 
 export const Location: React.FC = () => {
   return (
