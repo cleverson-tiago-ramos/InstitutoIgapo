@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import '@/styles/HeroSlider/HeroSlider.scss';
 
 import slide1 from '@/assets/img/heroSlider/foto1.png';
@@ -45,32 +45,42 @@ export default function HeroSlider() {
   const [paused, setPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // autoplay inteligente (pausa no hover)
+  // ✅ funções antes do useEffect
+  const next = useCallback(() => {
+    setActive((p) => (p + 1) % slides.length);
+  }, []);
+
+  const prev = useCallback(() => {
+    setActive((p) => (p - 1 + slides.length) % slides.length);
+  }, []);
+
+  // autoplay
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => {
-      setActive((p) => (p + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(t);
-  }, [paused]);
 
-  // teclado (← →)
+    const interval = setInterval(() => {
+      next();
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [paused, next]);
+
+  // teclado
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') prev();
       if (e.key === 'ArrowRight') next();
     };
+
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, []);
+  }, [next, prev]);
 
-  const next = () => setActive((p) => (p + 1) % slides.length);
-  const prev = () => setActive((p) => (p - 1 + slides.length) % slides.length);
-
-  // parallax leve com o mouse
+  // parallax mouse
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = containerRef.current;
     if (!el) return;
+
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -79,7 +89,7 @@ export default function HeroSlider() {
     el.style.setProperty('--my', `${y}`);
   };
 
-  const s = slides[active];
+  const current = slides[active];
 
   return (
     <section
@@ -89,7 +99,7 @@ export default function HeroSlider() {
       onMouseLeave={() => setPaused(false)}
       onMouseMove={handleMouseMove}
     >
-      {/* camadas de background para crossfade */}
+      {/* BACKGROUND */}
       {slides.map((slide, i) => (
         <div
           key={slide.id}
@@ -98,18 +108,19 @@ export default function HeroSlider() {
         />
       ))}
 
+      {/* OVERLAY */}
       <div className='overlay' />
 
-      {/* CONTEÚDO */}
-      <div key={s.id} className='hero-content'>
-        <span className='subtitle'>{s.subtitle}</span>
+      {/* TEXTO */}
+      <div key={current.id} className='hero-content'>
+        <span className='subtitle'>{current.subtitle}</span>
 
         <h1 className='title'>
-          {s.title} <br />
-          <span>{s.highlight}</span>
+          {current.title} <br />
+          <span>{current.highlight}</span>
         </h1>
 
-        <p className='desc'>{s.description}</p>
+        <p className='desc'>{current.description}</p>
 
         <div className='buttons'>
           <button className='btn-primary'>Ver mais</button>
@@ -124,7 +135,6 @@ export default function HeroSlider() {
             key={slide.id}
             className={`thumb ${index === active ? 'active' : ''}`}
             onClick={() => setActive(index)}
-            aria-label={`Ir para ${slide.title}`}
           >
             <img src={slide.image} alt={slide.title} />
             <div className='thumb-info'>
@@ -137,12 +147,8 @@ export default function HeroSlider() {
 
       {/* NAV */}
       <div className='hero-nav'>
-        <button onClick={prev} aria-label='Anterior'>
-          ‹
-        </button>
-        <button onClick={next} aria-label='Próximo'>
-          ›
-        </button>
+        <button onClick={prev}>‹</button>
+        <button onClick={next}>›</button>
       </div>
     </section>
   );
