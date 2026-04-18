@@ -1,7 +1,6 @@
 // components/Activities.tsx
 import React from 'react';
-import './Activities.scss';
-
+import '@/styles/Activities.scss';
 export const Activities: React.FC = () => {
   return (
     <section id='atividades' className='section'>

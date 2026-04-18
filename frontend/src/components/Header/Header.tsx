@@ -1,7 +1,8 @@
 // components/Header.tsx
 import React from 'react';
-import './Header.scss';
-import logo from '../../assets/logo_instituto.png';
+
+import '@/styles/Header.scss';
+import logo from '@/assets/logo_instituto.png';
 
 export const Header: React.FC = () => {
   return (

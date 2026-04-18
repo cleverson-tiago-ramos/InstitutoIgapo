@@ -1,5 +1,6 @@
 import React from 'react';
-import './Hero.scss';
+
+import '@/styles/Hero.scss';
 export const Hero = () => {
   return (
     <section className='hero'>
