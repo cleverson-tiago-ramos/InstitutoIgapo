@@ -1,25 +1,30 @@
 // components/Header.tsx
 import React from 'react';
 import './Header.scss';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo_instituto.png';
 
 export const Header: React.FC = () => {
   return (
     <header className='header'>
       <div className='header-container'>
         {/* LOGO */}
-        <img src={logo} alt='Instituto de Educação Igapó' className='logo' />
+        <div className='header-left'>
+          <img src={logo} alt='Instituto Igapó' className='logo' />
+        </div>
 
         {/* MENU */}
         <nav className='nav'>
-          <a href='#sobre'>Sobre</a>
+          <a href='#inicio'>Início</a>
+          <a href='#sobre'>Sobre Nós</a>
           <a href='#atividades'>Atividades</a>
-          <a href='#local'>Local</a>
-          <a href='#parceiros'>Parceiros</a>
+          <a href='#impacto'>Impacto</a>
+          <a href='#contato'>Contato</a>
         </nav>
 
         {/* BOTÃO */}
-        <button className='btn-primary'>Matrícula</button>
+        <div className='header-right'>
+          <button className='btn-voluntario'>SEJA VOLUNTÁRIO</button>
+        </div>
       </div>
     </header>
   );

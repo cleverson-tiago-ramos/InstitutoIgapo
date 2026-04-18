@@ -1,4 +1,4 @@
-@import '../../styles/variables';
+@use '../../styles/variables';
 
 .hero {
   text-align: center;
@@ -17,7 +17,7 @@
   p {
     font-size: 18px;
     margin: 20px 0;
-    color: $secondary;
+    color: pink;
   }
 
   .btn-primary {
